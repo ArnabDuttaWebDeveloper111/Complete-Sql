@@ -1,0 +1,12 @@
+-----------Case Statement-----------------
+-- SELECT * from flights
+-- SELECT
+-- COUNT(*),
+-- CASE
+-- WHEN actual_departure is null THEN 'Not Know'
+-- WHEN actual_departure-scheduled_departure <'00:05' THEN 'on_time'
+-- WHEN actual_departure-scheduled_departure<'01:00' THEN 'to little late'
+-- ELSE 'very late'
+-- END as is_late
+-- from flights
+-- GROUP BY is_late
