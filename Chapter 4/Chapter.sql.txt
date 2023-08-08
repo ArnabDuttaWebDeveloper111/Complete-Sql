@@ -1,0 +1,80 @@
+-----------Case Statement-----------------
+-- SELECT * from flights
+-- SELECT
+-- COUNT(*),
+-- CASE
+-- WHEN actual_departure is null THEN 'Not Know'
+-- WHEN actual_departure-scheduled_departure <'00:05' THEN 'on_time'
+-- WHEN actual_departure-scheduled_departure<'01:00' THEN 'to little late'
+-- ELSE 'very late'
+-- END as is_late
+-- from flights
+-- GROUP BY is_late
+2.
+-- SELECT * from flights
+-- SELECT actual_departure-scheduled_departure as departure,
+-- CASE
+
+-- WHEN actual_departure-scheduled_departure<'00:05' THEN 'on time'
+-- WHEN actual_departure-scheduled_departure<'01:00' THEN 'a very little bit late'
+-- ELSE 'very late'
+-- END
+-- from flights
+3.
+SELECT 
+count(*) as flights,
+CASE
+WHEN actual_departure-scheduled_departure <'00:05' THEN 'on time'
+WHEN actual_departure-scheduled_departure <'01:00' THEN 'a very little bit late'
+ELSE 'very late'
+END as is_late
+from flights
+GROUP BY is_late
+4.
+SELECT 
+count(*) as total,
+CASE
+WHEN total_amount < 20000 THEN 'low price ticket'
+WHEN total_amount between 20000 AND 150000 THEN 'mid price ticket'
+WHEN total_amount >=150000 THEN 'high ticket price'
+END as is_result
+from bookings
+GROUP BY  is_result
+5.
+SELECT
+count(*) AS flights,
+CASE
+WHEN EXTRACT(MONTH from scheduled_departure) IN(12,2,1) THEN 'WINTER'
+WHEN EXTRACT(MONTH from scheduled_departure)<=5 THEN 'SPRING'
+WHEN EXTRACT(MONTH from scheduled_departure)<=8 THEN 'SUMMER'
+ELSE 'FALL'
+END as is_season
+from flights
+GROUP BY is_season
+6.
+SELECT
+title,
+CASE
+WHEN rating IN('PG','PG-13') or length>210 THEN 'Great rating or long'
+WHEN description LIKE '%Drama%' and length>90 THEN 'Long Drama'
+WHEN description LIKE '%Drama%' and length<90 THEN 'Short Drama'
+WHEN rental_rate<1 THEN 'very cheap'
+END  as tier_list
+from film
+WHERE
+CASE
+WHEN rating IN('PG','PG-13') or length>210 THEN 'Great rating or long'
+WHEN description LIKE '%Drama%' and length>90 THEN 'Long Drama'
+WHEN description LIKE '%Drama%' and length<90 THEN 'Short Drama'
+WHEN rental_rate<1 THEN 'very cheap'
+END  is not null
+7.
+SELECT
+SUM(CASE WHEN rating='R' THEN 1 ELSE 0 END) AS "R",
+SUM(CASE WHEN rating='PG-13' THEN 1 ELSE 0 END) AS "PG-13"
+from film
+8.
+SELECT
+SUM(CASE WHEN rating='R' THEN 2 ELSE 0 END) AS R,
+SUM(CASE WHEN rating='PG' THEN 3 ELSE 0 END) AS PG
+from film
